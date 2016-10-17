@@ -1,9 +1,9 @@
 pub mod functions;
-use functions::sum;
 
 #[cfg(test)]
 mod tests {
-	
+	use functions::*;
+
     #[test]
     fn it_works() {
     }
