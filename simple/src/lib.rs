@@ -2,7 +2,7 @@ pub mod functions;
 
 #[cfg(test)]
 mod tests {
-	use functions::*;
+    use functions::*;
 
     #[test]
     fn it_works() {
