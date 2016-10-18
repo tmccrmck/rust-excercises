@@ -65,6 +65,9 @@ mod tests {
         let hashes = [djb2, fnv, jenkins];
         assert_eq!(true, bloom(&data, hashes, "carrot"));
         assert_eq!(true, bloom(&data, hashes, "milk"));
+        assert_eq!(true, bloom(&data, hashes, "date"));
         assert_eq!(false, bloom(&data, hashes, "bread"));
+        assert_eq!(false, bloom(&data, hashes, "dote"));
+        assert_eq!(false, bloom(&data, hashes, "fog"));
     }
 }
