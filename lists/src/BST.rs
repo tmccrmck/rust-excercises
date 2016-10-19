@@ -29,18 +29,33 @@ impl BST {
                     right: Link::Empty,
                 });
                 self.root = Link::More(new_node);
+                return true;
             },
             Link::More(ref mut node) => {
                 if elem > node.elem {
-                    BST::insert(&mut BST { root: mem::replace(&mut node.right, Link::Empty) }, elem);
+                    return BST::insert(&mut BST { root: mem::replace(&mut node.right, Link::Empty) }, elem);
                 } else if elem < node.elem {
-                    BST::insert(&mut BST { root: mem::replace(&mut node.left, Link::Empty) }, elem);
+                    return BST::insert(&mut BST { root: mem::replace(&mut node.left, Link::Empty) }, elem);
                 } else {
                     return false;
                 }
             }
         }
-        return true;
+    }
+
+    pub fn search(&mut self, elem:i32) -> bool {
+        match self.root {
+            Link::Empty => return false,
+            Link::More(ref mut node) => {
+                if elem > node.elem {
+                    return BST::search(&mut BST { root: mem::replace(&mut node.right, Link::Empty) }, elem);
+                } else if elem < node.elem {
+                    return BST::search(&mut BST { root: mem::replace(&mut node.left, Link::Empty) }, elem);
+                } else {
+                    return true;
+                }
+            }
+        }
     }
 }
 
@@ -49,11 +64,23 @@ mod test {
     use super::BST;
 
     #[test]
-    fn basics() {
+    fn test_insert() {
         let mut bst = BST::new();
 
         // Check empty bst behaves right
         assert_eq!(bst.insert(1), true);
         assert_eq!(bst.insert(1), false);
+        assert_eq!(bst.insert(2), true);
+    }
+
+    #[test]
+    fn test_search() {
+        let mut bst = BST::new();
+
+        // Check empty bst behaves right
+        assert_eq!(bst.insert(1), true);
+        assert_eq!(bst.search(1), true);
+        assert_eq!(bst.insert(2), true);
+        assert_eq!(bst.search(3), false);
     }
 }
