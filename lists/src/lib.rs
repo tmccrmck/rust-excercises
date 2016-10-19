@@ -1,5 +1,5 @@
 pub mod first;
-pub mod Bst;
+pub mod BST;
 #[cfg(test)]
 mod tests {
     #[test]
