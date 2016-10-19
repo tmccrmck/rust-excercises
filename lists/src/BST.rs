@@ -16,33 +16,32 @@ struct Node {
 }
 
 impl BST {
-	pub fn new() -> Self {
-		BST { root: Link::Empty }
-	}
+    pub fn new() -> Self {
+        BST { root: Link::Empty }
+    }
 
-	pub fn insert(&mut self, elem: i32) -> bool {
-		match self.root {
-			Link::Empty => {
-				let new_node = Box::new(Node {
-		            elem: elem,
-		            left: Link::Empty,
-		            right: Link::Empty,
-		        });
-				self.root = Link::More(new_node);
-			},
-			Link::More(ref mut node) => {
-				if elem > node.elem {
-					
-					BST::insert(&mut BST { root: mem::replace(&mut node.right, Link::Empty) }, elem);
-				} else if elem < node.elem {
-					BST::insert(&mut BST { root: mem::replace(&mut node.left, Link::Empty) }, elem);
-				} else {
-					return false;
-				}
-			}
-		}
-		return true;
-	}
+    pub fn insert(&mut self, elem: i32) -> bool {
+        match self.root {
+            Link::Empty => {
+                let new_node = Box::new(Node {
+                    elem: elem,
+                    left: Link::Empty,
+                    right: Link::Empty,
+                });
+                self.root = Link::More(new_node);
+            },
+            Link::More(ref mut node) => {
+                if elem > node.elem {
+                    BST::insert(&mut BST { root: mem::replace(&mut node.right, Link::Empty) }, elem);
+                } else if elem < node.elem {
+                    BST::insert(&mut BST { root: mem::replace(&mut node.left, Link::Empty) }, elem);
+                } else {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 }
 
 #[cfg(test)]
